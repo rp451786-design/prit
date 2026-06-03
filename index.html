@@ -404,10 +404,26 @@
 <script>
   function handleForm(e) {
     e.preventDefault();
-    const btn = e.target.querySelector('.form-submit');
-    btn.textContent = '✔ Enquiry Sent Confidentially!';
-    btn.style.background = 'linear-gradient(135deg,#2a6a4a,#3aaa6a)';
-    setTimeout(() => { btn.textContent = 'Send Confidential Enquiry →'; btn.style.background = ''; e.target.reset(); }, 3500);
+    const form = e.target;
+    const name = form.querySelector('input[type=text]').value;
+    const phone = form.querySelector('input[type=tel]').value;
+    const caseType = form.querySelectorAll('input[type=text]')[1].value;
+    const desc = form.querySelector('textarea').value;
+
+    const msg = `🔍 *New Enquiry — Secret Search Detective Agency*
+
+👤 *Name:* ${name}
+📞 *Phone:* ${phone}
+📋 *Case Type:* ${caseType}
+📝 *Description:* ${desc}`;
+
+    const waURL = `https://wa.me/919322862947?text=${encodeURIComponent(msg)}`;
+    window.open(waURL, '_blank');
+
+    const btn = form.querySelector('.form-submit');
+    btn.textContent = '✔ Opening WhatsApp...';
+    btn.style.background = 'linear-gradient(135deg,#25a244,#2ecc71)';
+    setTimeout(() => { btn.textContent = 'Send Confidential Enquiry →'; btn.style.background = ''; form.reset(); }, 4000);
   }
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
